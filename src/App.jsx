@@ -1,18 +1,24 @@
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import Home from './pages/Home';
+import Bookmarks from './pages/Bookmarks';
+import store from './store/configure';
+import Layout from './components/Layout';
 
-function App() {
-
+const App = () => {
   return (
-    <>
-      <h1 className='text-4xl font-extrabold text-purple-400'>Vite + React</h1>
-      <button
-        className='text-xl font-bold text-red-600 border-4 border-blue-400'
-      >
-          Click Here
-      </button>
-      <p className='text-lg text-violet-600'>Demo App</p>
-    </>
-  )
+    <Provider store={ store }>
+      <BrowserRouter>
+        <Routes>
+          <Route element={ <Layout /> }>
+            <Route path='/' element={ <Home /> } />
+            <Route path='/bookmarks' element={ <Bookmarks /> } />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
+  );
 };
 
-export default App
+export default App;
