@@ -6,7 +6,7 @@ export const store = configureStore( {
    reducer: {
       quotes: quotesReducer,
       bookmarks: bookmarksReducer,
-      // Add other reducers as required
+      // add other reducers as required
    },
 } );
 
