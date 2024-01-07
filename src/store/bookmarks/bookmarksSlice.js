@@ -14,10 +14,13 @@ const bookmarksSlice = createSlice( {
       state.bookmarks = state.bookmarks.filter( ( quote ) => quote._id !== action.payload );
       localStorage.setItem( 'bookmarks', JSON.stringify( state.bookmarks ) );
     },
+    setBookmarks ( state, action ) {
+      state.bookmarks = action.payload;
+    },
     // add reducers as needed
   },
 } );
 
-export const { bookmarkQuote, removeBookmark } = bookmarksSlice.actions;
+export const { bookmarkQuote, removeBookmark, setBookmarks } = bookmarksSlice.actions;
 
 export default bookmarksSlice.reducer;
