@@ -2,7 +2,7 @@ import React from 'react';
 import { FaTrashCan } from 'react-icons/fa6';
 import QuoteCard from '../components/QuoteCard';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeBookmark, setBookmarks } from '../store/bookmarks/bookmarksSlice'
+import { removeBookmark } from '../store/bookmarks/bookmarksSlice'
 
 const Bookmarks = () => {
 
