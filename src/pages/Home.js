@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import QuoteCard from '../components/QuoteCard';
 import TagDropdown from '../components/TagDropdown';
 import LoadingIndicator from '../components/LoadingIndicator';
@@ -9,25 +9,28 @@ import { bookmarkQuote, setBookmarks } from '../store/bookmarks/bookmarksSlice';
 const Home = () => {
   const dispatch = useDispatch();
   // destructured props from quotes state
-  const { randomQuote, tags, loadingQuote, loadingTags } = useSelector( ( state ) => state.quotes );
+  const { randomQuote, tags, loadingQuote, loadingTags, taggedQuote } = useSelector( ( state ) => state.quotes );
+  const [tagName, setTagName] = useState( '' );
   const { bookmarks } = useSelector( ( state ) => state.bookmarks );
 
   useEffect( () => {
-    getRandomQuote();
-    getTags();
+    dispatch( getRandomQuote() );
+    dispatch( getTags() );
     // retrieving bookmarks from local storage if stored and updating state
     const storedBookmarks = JSON.parse( localStorage.getItem( 'bookmarks' ) ) || [];
-    dispatch( setBookmarks( storedBookmarks ) );  
+    dispatch( setBookmarks( storedBookmarks ) );
   }, [] );
 
   // handler for generating a new random quote
   const handleGenerateQuote = () => {
+    setTagName( '' );
     dispatch( getRandomQuote() );
   };
 
   // handler for generating a random quote based on selected tag
-  const handleTagSelection = ( tag ) => {
-    dispatch( getTaggedQuote( tag ) );
+  const handleTagSelection = ( tagName ) => {
+    setTagName( tagName );
+    dispatch( getTaggedQuote( tagName ) );
   };
 
   // handler for adding quote to bookmarks
@@ -37,6 +40,7 @@ const Home = () => {
       alert( 'This quote is already in your bookmarks!' );
     } else {
       dispatch( bookmarkQuote( quote ) );
+      alert( 'Quote is Bookmarked.' );
     }
   };
 
@@ -44,13 +48,18 @@ const Home = () => {
     <>
       {
         loadingQuote ? <LoadingIndicator /> : (
-          <QuoteCard content={ 'Quote content is fetched from endpoint.' } author={ 'Author author' } onBookmark={ handleBookmarkQuote } option='add' />
+          <QuoteCard
+            content={ tagName === '' ? randomQuote?.content : taggedQuote?.content }
+            author={ tagName === '' ? randomQuote?.author : taggedQuote?.author }
+            onBookmark={ () => handleBookmarkQuote( tagName === '' ? randomQuote : taggedQuote ) }
+            option='add'
+          />
         )
       }
 
       {
         loadingTags ? <LoadingIndicator /> : (
-          <TagDropdown tags={ ['Peace', 'Love'] } onSelectTag={ handleTagSelection } />
+          <TagDropdown tags={ tags } onSelectTag={ handleTagSelection } />
         )
       }
 

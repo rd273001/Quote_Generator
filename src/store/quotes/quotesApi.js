@@ -28,16 +28,16 @@ export const fetchTags = async () => {
   }
 };
 
-export const fetchTaggedQuote = async ( tag ) => {
+export const fetchTaggedQuote = async ( tagName ) => {
   try {
-    const response = await fetch( `${ BASE_URL }/random?tags=${ tag }` );
+    const response = await fetch( `${ BASE_URL }/random?tags=${ tagName }` );
     if ( !response.ok ) {
-      throw new Error( `Failed to fetch tagged quote for tag: ${ tag }` );
+      throw new Error( `Failed to fetch tagged quote for tag: ${ tagName }` );
     }
     const data = await response.json();
     return data;
   } catch ( error ) {
-    console.error( `Error fetching tagged quote for tag ${ tag }:`, error );
+    console.error( `Error fetching tagged quote for tag ${ tagName }:`, error );
     throw error;
   }
 };
