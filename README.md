@@ -21,8 +21,7 @@ This is a simple React app created with Vite and styled using Tailwind CSS. The 
 - Vite
 - Tailwind CSS
 - Redux Toolkit (for state management)
-- React Router (for navigation)
-- Axios (for API requests)
+- React Router Dom (for navigation)
 - and other dependencies as needed
 
 ## Project Structure
@@ -30,8 +29,8 @@ This is a simple React app created with Vite and styled using Tailwind CSS. The 
 The project structure follows the standard setup for a React project with Vite. Here are the main folders:
 
 - `src`: Contains the source code for the React components, Redux slices, and styles.
-  - `components`: Reusable UI components.
-  - `features`: React components related to specific features (e.g., Quotes, Bookmarks).
+  - `pages`: Components for Pages of App(Home, Bookmarks).
+  - `components`: Reusable UI components (e.g.,Layout, QuoteCard, LoadingIndicator).
   - `store`: Redux slices for managing global state.
   - `styles`: Stylesheets, including Tailwind CSS.
 - `public`: Static assets and the `index.html` file.
@@ -39,8 +38,8 @@ The project structure follows the standard setup for a React project with Vite. 
 ## Setup Instructions
 
 ```bash
-git clone <repository-url>
-cd quote-generator-app
+git clone https://github.com/rd273001/Quote_Generator.git
+cd Quote_Generator
 npm install
 npm run dev
 ```
