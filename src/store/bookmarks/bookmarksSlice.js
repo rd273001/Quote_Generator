@@ -11,6 +11,7 @@ const bookmarksSlice = createSlice( {
       localStorage.setItem( 'bookmarks', JSON.stringify( state.bookmarks ) );
     },
     removeBookmark ( state, action ) {
+      // removing the bookmark through iterating through it and checking with _id & updating local storage to reflect deletion
       state.bookmarks = state.bookmarks.filter( ( quote ) => quote._id !== action.payload );
       localStorage.setItem( 'bookmarks', JSON.stringify( state.bookmarks ) );
     },
