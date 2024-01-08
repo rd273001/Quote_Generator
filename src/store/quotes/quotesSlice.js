@@ -27,6 +27,7 @@ export const getTaggedQuote = createAsyncThunk( 'quotes/getTaggedQuote', async (
     return taggedQuote;
   } catch ( error ) {
     console.error( `Error fetching tagged quote for tag ${ tagName }:`, error );
+    alert( error );
     throw error;
   }
 } );
