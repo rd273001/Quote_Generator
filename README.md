@@ -33,7 +33,7 @@ The project structure follows the standard setup for a React project with Vite. 
   - `components`: Reusable UI components (e.g.,Layout, QuoteCard, LoadingIndicator).
   - `store`: Redux slices for managing global state.
   - `styles`: Stylesheets, including Tailwind CSS.
-- `public`: Static assets and the `index.html` file.
+- `dist`: Static assets and the `index.html` file, folder created on running `npm run build`.
 
 ## Setup Instructions
 
