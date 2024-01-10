@@ -13,6 +13,7 @@ const Home = () => {
   const [isBookmarked, setIsBookmarked] = useState( false );
   const { bookmarks } = useSelector( ( state ) => state.bookmarks );
 
+  // random quote and tags is fetched when component mounts
   useEffect( () => {
     dispatch( getRandomQuote() );
     dispatch( getTags() );
@@ -21,28 +22,41 @@ const Home = () => {
     dispatch( setBookmarks( storedBookmarks ) );
   }, [] );
 
+  useEffect( () => {
+    // effect for checking already Bookmarked or not with updated values of randomQuote or taggedQuote
+    checkIsBookmarked( tagName === '' ? randomQuote : taggedQuote );
+  }, [randomQuote?._id, taggedQuote?._id] );
+
   // handler for generating a new random quote
   const handleGenerateQuote = () => {
     setTagName( '' );
-    setIsBookmarked( false ); // reset isBookmarked to false when new quote is generated
     dispatch( getRandomQuote() );
+    setIsBookmarked( false );   // reset isBookmarked to false when new quote
   };
-  console.log( `Tag Name => ${ tagName }` );
 
   // handler for generating a random quote based on selected tag
-  const handleTagSelection = ( tagName ) => {
+  const handleTagSelection = async ( tagName ) => {
     setTagName( tagName );
     dispatch( getTaggedQuote( tagName ) );
+    setIsBookmarked( false );   // reset isBookmarked to false when new tagged quote is generated if not already bookmarked
+  };
+
+  const checkIsBookmarked = ( quote ) => {
+    console.log( 'Quote  =>  ' + JSON.stringify( quote ) );
+    const isAlreadyBookmarked = [...bookmarks].some( ( bookmark ) => bookmark._id === quote._id );
+    isAlreadyBookmarked ? setIsBookmarked( true ) : setIsBookmarked( false );
+    console.log( 'Already Bookmarked 2 => ' + isAlreadyBookmarked );
+    return isAlreadyBookmarked;
   };
 
   // handler for adding quote to bookmarks
   const handleBookmarkQuote = ( quote ) => {
-    const isAlreadyBookmarked = bookmarks.some( ( bookmark ) => bookmark._id === quote._id );
-    if ( isAlreadyBookmarked ) {
+    setIsBookmarked( true );
+    if ( checkIsBookmarked( quote ) ) {
       // for showing icon with yellow filled color if quote is already saved to bookmarks
-      setIsBookmarked( true );
       alert( 'This quote is already in your bookmarks!' );
     } else {
+      setIsBookmarked( true );
       dispatch( bookmarkQuote( quote ) );
       alert( 'Quote is Bookmarked.' );
     }
@@ -63,7 +77,7 @@ const Home = () => {
 
       <div
         onClick={ handleGenerateQuote }
-        className='bg-green-600 rounded-full shadow-md shadow-white cursor-pointer px-10 py-1.5 text-center hover:opacity-80 active:opacity-50 w-max mx-auto mt-10'
+        className='bg-green-600 rounded-full shadow-md shadow-white cursor-pointer px-10 py-1.5 text-center hover:opacity-80 active:opacity-50 w-max mx-auto mt-6 mb-4'
       >
         Next Quote
       </div>
