@@ -63,7 +63,7 @@ const Home = () => {
   };
 
   return (
-    <>
+    <div>
       <QuoteCard
         content={ tagName === '' ? randomQuote?.content : taggedQuote?.content }
         author={ tagName === '' ? randomQuote?.author : taggedQuote?.author }
@@ -81,7 +81,7 @@ const Home = () => {
       >
         Next Quote
       </div>
-    </>
+    </div>
   );
 };
 
