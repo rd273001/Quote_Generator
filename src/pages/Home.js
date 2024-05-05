@@ -42,10 +42,10 @@ const Home = () => {
   };
 
   const checkIsBookmarked = ( quote ) => {
-    console.log( 'Quote  =>  ' + JSON.stringify( quote ) );
+    // console.log( 'Quote  =>  ' + JSON.stringify( quote ) );
     const isAlreadyBookmarked = [...bookmarks].some( ( bookmark ) => bookmark._id === quote._id );
     isAlreadyBookmarked ? setIsBookmarked( true ) : setIsBookmarked( false );
-    console.log( 'Already Bookmarked 2 => ' + isAlreadyBookmarked );
+    // console.log( 'Already Bookmarked 2 => ' + isAlreadyBookmarked );
     return isAlreadyBookmarked;
   };
 
