@@ -1,7 +1,3 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
 # Quote Generator App
 
 This is a simple React app created with Vite and styled using Tailwind CSS. The app allows users to generate random quotes, filter quotes by tags, bookmark quotes, and view their bookmarked quotes.
